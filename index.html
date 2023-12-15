@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Ironscrolls Character Generator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Style -->
+        <link href="css/mainPage.css" rel="stylesheet">
+
+        <!-- Scripts -->
+        <script src="js/main.js"></script>
+    </head>
+    <body>
+    <h1>IronScrolls Character and Dungeon Generator</h1>
+    <div id="setup">
+        <table class="buttonTable">
+            <tr>
+                <td class="bordered">
+                    <h3>Character Setup</h3>
+                    <label>Name:</label>
+                    <input id="inputName" size="10" maxlength="10"/>
+                    <br/>
+                    <br/>
+                    <button onclick="updateName()">Update Name</button>
+                    <br/>
+                    <br/>
+                    <label>Run Number:</label>
+                    <input id="inputRunNumber" size="4" maxlength="4"/>
+                    <br/>
+                    <br/>
+                    <button onclick="updateRunNumber()">Update Run Number</button>
+                </td>
+                <td class="bordered">
+                    <h3>Actions</h3>
+                    <button onclick="generateNewCharacter()">Roll New Character</button>
+                    <br/>
+                    <br/>
+                    <button onclick="setQuestCompleted(true)">+1 Quests Completed</button>
+                    <br/>
+                    <br/>
+                    <button onclick="setQuestCompleted(false)">-1 Quests Completed</button>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <br/>
+    </div>
+    <div id="characterCard">
+        <h3>Current Character</h3>
+        <table class="character">
+            <tr>
+                <td>
+                    <div id="runNumber">Run #0</div>
+                    <div id="name">Name: Name</div>
+                    <div id="race">Race: TBD</div>
+                    <br>
+                    <div>Skill Trees:</div>
+                    <div id="skill1">Skill 1</div>
+                    <div id="skill2">Skill 2</div>
+                    <div id="skill3">Skill 3</div>
+                    <br>
+                    <div>Main Quest:</div>
+                    <div id="questline">Main Quest</div>
+                    <div id="questProgress">0 of 0 completed</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </body>
+</html>
