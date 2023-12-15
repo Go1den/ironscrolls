@@ -60,9 +60,9 @@ function getRandomRace() {
 
 function getRandomUnassignedSkill() {
     let skill = skillTrees[Math.floor(Math.random() * skillTrees.length)];
-    if (skill !== document.getElementById("skill1").textContent
-        && skill !== document.getElementById("skill2").textContent
-        && skill !== document.getElementById("skill3").textContent) {
+    if (skill !== mySkill1
+        && skill !== mySkill2
+        && skill !== mySkill3) {
         return skill;
     }
     return getRandomUnassignedSkill();
