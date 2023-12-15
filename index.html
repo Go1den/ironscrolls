@@ -3,7 +3,6 @@
     <head>
         <title>Ironscrolls Character Generator</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Style -->
         <link href="css/mainPage.css" rel="stylesheet">
@@ -48,24 +47,50 @@
     </div>
     <div id="characterCard">
         <h3>Current Character</h3>
-        <table class="character">
-            <tr>
-                <td>
-                    <div id="runNumber">Run #0</div>
-                    <div id="name">Name: Name</div>
-                    <div id="race">Race: TBD</div>
-                    <br>
-                    <div>Skill Trees:</div>
-                    <div id="skill1">Skill 1</div>
-                    <div id="skill2">Skill 2</div>
-                    <div id="skill3">Skill 3</div>
-                    <br>
-                    <div>Main Quest:</div>
-                    <div id="questline">Main Quest</div>
-                    <div id="questProgress">0 of 0 completed</div>
-                </td>
-            </tr>
-        </table>
+        <input type="radio" id="radioVertical" name="layout" value="Vertical" checked onchange="changeLayout()">
+        <label for="radioVertical">Vertical Layout</label>
+        <input type="radio" id="radioHorizontal" name="layout" value="Horizontal" onchange="changeLayout()">
+        <label for="radioHorizontal">Horizontal Layout</label>
+        <br/>
+        <br/>
+        <div id="characterVertical">
+            <table class="characterVertical">
+                <tr>
+                    <td>
+                        <div id="runNumberV">Run #0</div>
+                        <div id="nameV">Name: Name</div>
+                        <div id="raceV">Race: TBD</div>
+                        <br>
+                        <div>Skill Trees:</div>
+                        <div id="skill1V">Skill 1</div>
+                        <div id="skill2V">Skill 2</div>
+                        <div id="skill3V">Skill 3</div>
+                        <br>
+                        <div>Current Quest:</div>
+                        <div id="questlineV">Current Quest</div>
+                        <div id="questProgressV">0 of 0 completed</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="characterHorizontal" style="display: none;">
+            <table class="characterHorizontal">
+                <tr>
+                    <td>
+                        <span id="runNumberH">Run #0</span>
+                        <span id="nameH">Name: Name</span>
+                        <span id="raceH">Race: TBD</span>
+                        <span class="noRightMargin">Skill Trees: </span>
+                        <span class="noLeftMargin noRightMargin" id="skill1H">Skill 1</span> / 
+                        <span class="noLeftMargin noRightMargin" id="skill2H">Skill 2</span> / 
+                        <span class="noLeftMargin" id="skill3H">Skill 3</span>
+                        <span class="noRightMargin">Current Quest:</span>
+                        <span class="noRightMargin" id="questlineH">Current Quest</span>
+                        <span class="noLeftMargin" id="questProgressH">(0 of 0 completed)</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
     </body>
 </html>

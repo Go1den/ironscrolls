@@ -98,14 +98,23 @@ function generateNewCharacter() {
 }
 
 function updateFields() {
-    document.getElementById("name").textContent = "Name: " + myName;
-    document.getElementById("race").textContent = "Race: " + myRace;
-    document.getElementById("runNumber").textContent = "Run #" + runNumber;
-    document.getElementById("skill1").textContent = mySkill1;
-    document.getElementById("skill2").textContent = mySkill2;
-    document.getElementById("skill3").textContent = mySkill3;
-    document.getElementById("questline").textContent = myQuestline;
-    document.getElementById("questProgress").textContent = myQuestsCompleted + " of " + myQuestsTotal + " completed";
+    document.getElementById("nameV").textContent = "Name: " + myName;
+    document.getElementById("raceV").textContent = "Race: " + myRace;
+    document.getElementById("runNumberV").textContent = "Run #" + runNumber;
+    document.getElementById("skill1V").textContent = mySkill1;
+    document.getElementById("skill2V").textContent = mySkill2;
+    document.getElementById("skill3V").textContent = mySkill3;
+    document.getElementById("questlineV").textContent = myQuestline;
+    document.getElementById("questProgressV").textContent = myQuestsCompleted + " of " + myQuestsTotal + " completed";
+
+    document.getElementById("nameH").textContent = "Name: " + myName;
+    document.getElementById("raceH").textContent = "Race: " + myRace;
+    document.getElementById("runNumberH").textContent = "Run #" + runNumber;
+    document.getElementById("skill1H").textContent = mySkill1;
+    document.getElementById("skill2H").textContent = mySkill2;
+    document.getElementById("skill3H").textContent = mySkill3;
+    document.getElementById("questlineH").textContent = myQuestline;
+    document.getElementById("questProgressH").textContent = "(" + myQuestsCompleted + " of " + myQuestsTotal + " completed)";
 }
 
 function setQuestCompleted(isIncreasing) {
@@ -114,7 +123,8 @@ function setQuestCompleted(isIncreasing) {
     } else {
         myQuestsCompleted -= 1;
     }
-    document.getElementById("questProgress").textContent = myQuestsCompleted + " of " + myQuestsTotal + " completed";
+    document.getElementById("questProgressV").textContent = myQuestsCompleted + " of " + myQuestsTotal + " completed";
+    document.getElementById("questProgressH").textContent = "(" + myQuestsCompleted + " of " + myQuestsTotal + " completed)";
 }
 
 function updateName() {
@@ -129,4 +139,14 @@ function updateRunNumber() {
         runNumber = Number(document.getElementById("inputRunNumber").value);
     }
     updateFields();
+}
+
+function changeLayout() {
+    if (document.getElementById("radioVertical").checked) {
+        document.getElementById("characterVertical").style.display = "";
+        document.getElementById("characterHorizontal").style.display = "none";
+    } else {
+        document.getElementById("characterVertical").style.display = "none";
+        document.getElementById("characterHorizontal").style.display = "";
+    }
 }

@@ -50,10 +50,32 @@ td {
     vertical-align: top;
 }
 
-.character {
+.characterVertical {
     border: 2px solid white;
     width: 200px;
     height: 300px;
     font-family: "FuturaMedium";
     font-size: 24px;
+}
+
+.characterHorizontal {
+    border: 2px solid white;
+    height: 42px;
+    width: 1300px;
+    font-family: "FuturaMedium";
+    font-size: 24px;
+    max-width: 1300px;
+}
+
+span {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.noRightMargin {
+    margin-right: 0px;
+}
+
+.noLeftMargin {
+    margin-left: 0px;
 }
