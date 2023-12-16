@@ -139,7 +139,7 @@ function setQuestCompleted(isIncreasing) {
             getNextQuest();
         }
     } else {
-        if (!allQuestsCompleted) {
+        if (!allQuestsCompleted && myQuestsCompleted != 0) {
             myQuestsCompleted -= 1;
         }
     }
