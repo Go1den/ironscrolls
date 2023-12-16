@@ -9,6 +9,8 @@ let myQuestsCompleted = 0;
 let myQuestsTotal = 0;
 let myQuestIndexArray = [0, 1, 2, 3, 4];
 let allQuestsCompleted = false;
+let visitedLocations = [];
+let currentLocation = "None";
 
 let races = [
     "Argonian", 
@@ -56,6 +58,22 @@ let questAmounts = [
     5
 ];
 
+function getRandomUnvisitedLocation() {
+    let allLocations = caves.concat(dwarvenRuins, militaryForts, mines, nordicRuins, imperialTowers);
+    let index = Math.floor(Math.random() * allLocations.length);
+    if (visitedLocations.includes(index)) {
+        return getRandomUnvisitedLocation();
+    } else {
+        visitedLocations.push(index);
+        return allLocations[index];
+    }
+}
+
+function updateLocation() {
+    currentLocation = getRandomUnvisitedLocation();
+    document.getElementById("location").textContent = currentLocation;
+}
+
 function getRandomRace() {
     return races[Math.floor(Math.random() * races.length)];
 }
@@ -99,6 +117,8 @@ function resetCharacter() {
     myQuestline = "";
     myQuestsTotal = 0;
     allQuestsCompleted = false;
+    visitedLocations = [];
+    currentLocation = "None";
 }
 
 function generateNewCharacter() {
@@ -130,6 +150,8 @@ function updateFields() {
     document.getElementById("skill3H").textContent = mySkill3;
     document.getElementById("questlineH").textContent = myQuestline;
     document.getElementById("questProgressH").textContent = "(" + myQuestsCompleted + " of " + myQuestsTotal + " completed)";
+
+    document.getElementById("location").textContent = currentLocation;
 }
 
 function setQuestCompleted(isIncreasing) {

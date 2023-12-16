@@ -8,6 +8,7 @@
         <link href="css/mainPage.css" rel="stylesheet">
 
         <!-- Scripts -->
+        <script src="js/dungeons.js"></script>
         <script src="js/main.js"></script>
     </head>
     <body>
@@ -17,33 +18,34 @@
             <tr>
                 <td class="bordered">
                     <h3>Character Setup</h3>
-                    <label>Name:</label>
-                    <input id="inputName" size="10" maxlength="10"/>
+                    <div style="width: 400px">
+                        <label>Name:</label>
+                        <input id="inputName" size="10" maxlength="10"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>Run Number:</label>
+                        <input id="inputRunNumber" size="4" maxlength="4"/>
+                    </div>
+                    <br/>
+                    <div style="width: 400px">
+                        <button onclick="updateName()">Update Name</button>
+                        <button onclick="updateRunNumber()">Update Run Number</button>
+                    </div>
                     <br/>
                     <br/>
-                    <button onclick="updateName()">Update Name</button>
-                    <br/>
-                    <br/>
-                    <label>Run Number:</label>
-                    <input id="inputRunNumber" size="4" maxlength="4"/>
-                    <br/>
-                    <br/>
-                    <button onclick="updateRunNumber()">Update Run Number</button>
                 </td>
                 <td class="bordered">
                     <h3>Actions</h3>
                     <button onclick="generateNewCharacter()">Roll New Character</button>
+                    <button onclick="updateLocation()">Roll Random Location</button>
                     <br/>
                     <br/>
                     <button onclick="setQuestCompleted(true)">+1 Quests Completed</button>
-                    <br/>
-                    <br/>
                     <button onclick="setQuestCompleted(false)">-1 Quests Completed</button>
+                    <br/>
+                    <br/>
                 </td>
             </tr>
         </table>
-        <br/>
-        <br/>
     </div>
     <div id="characterCard">
         <h3>Current Character</h3>
@@ -91,6 +93,14 @@
                 </tr>
             </table>
         </div>
+    </div>
+    <div id="locationCard">
+        <h3>Current Location</h3>
+        <table class="location">
+            <tr>
+                <td id="location">None</td>
+            </tr>
+        </table>
     </div>
     </body>
 </html>
