@@ -7,6 +7,8 @@ let myQuestline = "Main Quest";
 let runNumber = 0;
 let myQuestsCompleted = 0;
 let myQuestsTotal = 0;
+let myQuestIndexArray = [0, 1, 2, 3, 4];
+let allQuestsCompleted = false;
 
 let races = [
     "Argonian", 
@@ -69,9 +71,23 @@ function getRandomUnassignedSkill() {
 }
 
 function setupQuestline() {
-    let idx = Math.floor(Math.random() * questlines.length);
+    myQuestIndexArray = [0, 1, 2, 3, 4]
+    myQuestIndexArray = myQuestIndexArray
+        .map(value => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value)
+    getNextQuest();
+}
+
+function getNextQuest() {
+    idx = myQuestIndexArray.pop();
+    if (idx === undefined) {
+        allQuestsCompleted = true;
+    }
     myQuestline = questlines[idx];
     myQuestsTotal = questAmounts[idx];
+    myQuestsCompleted = 0;
+    updateFields();
 }
 
 function resetCharacter() {
@@ -82,6 +98,7 @@ function resetCharacter() {
     mySkill3 = "";
     myQuestline = "";
     myQuestsTotal = 0;
+    allQuestsCompleted = false;
 }
 
 function generateNewCharacter() {
@@ -92,8 +109,6 @@ function generateNewCharacter() {
         mySkill2 = getRandomUnassignedSkill();
         mySkill3 = getRandomUnassignedSkill();
         setupQuestline();
-        myQuestsCompleted = 0;
-        updateFields();
     }
 }
 
@@ -118,13 +133,24 @@ function updateFields() {
 }
 
 function setQuestCompleted(isIncreasing) {
-    if (isIncreasing) {
+    if (!allQuestsCompleted && isIncreasing) {
         myQuestsCompleted += 1;
+        if (myQuestsCompleted >= myQuestsTotal) {
+            getNextQuest();
+        }
     } else {
-        myQuestsCompleted -= 1;
+        if (!allQuestsCompleted) {
+            myQuestsCompleted -= 1;
+        }
     }
-    document.getElementById("questProgressV").textContent = myQuestsCompleted + " of " + myQuestsTotal + " completed";
-    document.getElementById("questProgressH").textContent = "(" + myQuestsCompleted + " of " + myQuestsTotal + " completed)";
+    if (allQuestsCompleted) {
+        document.getElementById("questlineV").textContent = "None";
+        document.getElementById("questProgressV").textContent = "All quests complete!";
+        document.getElementById("questProgressH").textContent = "All quests complete!";
+    } else {
+        document.getElementById("questProgressV").textContent = myQuestsCompleted + " of " + myQuestsTotal + " completed";
+        document.getElementById("questProgressH").textContent = "(" + myQuestsCompleted + " of " + myQuestsTotal + " completed)";
+    }
 }
 
 function updateName() {
