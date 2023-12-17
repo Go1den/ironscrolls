@@ -11,6 +11,8 @@ let myQuestIndexArray = [0, 1, 2, 3, 4];
 let allQuestsCompleted = false;
 let visitedLocations = [];
 let currentLocation = "None";
+let currentCoinFlips = 0;
+let coinFlipThreshold = 5;
 
 let races = [
     "Argonian", 
@@ -58,6 +60,15 @@ let questAmounts = [
     5
 ];
 
+function updateFlips() {
+    coinFlipThreshold = document.getElementById("inputFlips").value;
+    updateFlipCount();
+}
+
+function updateFlipCount() {
+    document.getElementById("coinFlips").textContent = "Coin Flips to Next Location: " + currentCoinFlips + " of " + coinFlipThreshold;
+}
+
 function getRandomUnvisitedLocation() {
     let allLocations = caves.concat(dwarvenRuins, militaryForts, mines, nordicRuins, imperialTowers);
     let index = Math.floor(Math.random() * allLocations.length);
@@ -69,9 +80,18 @@ function getRandomUnvisitedLocation() {
     }
 }
 
+function clearLocation() {
+    currentLocation = "None";
+    setCurrentLocation();
+}
+
+function setCurrentLocation() {
+    document.getElementById("location").textContent = "Current Location: " + currentLocation;
+}
+
 function updateLocation() {
     currentLocation = getRandomUnvisitedLocation();
-    document.getElementById("location").textContent = currentLocation;
+    setCurrentLocation();
 }
 
 function getRandomRace() {
@@ -118,7 +138,8 @@ function resetCharacter() {
     myQuestsTotal = 0;
     allQuestsCompleted = false;
     visitedLocations = [];
-    currentLocation = "None";
+    currentLocation = "Current Location: None";
+    currentCoinFlips = 0;
 }
 
 function generateNewCharacter() {
@@ -129,19 +150,12 @@ function generateNewCharacter() {
         mySkill2 = getRandomUnassignedSkill();
         mySkill3 = getRandomUnassignedSkill();
         setupQuestline();
+        clearLocation();
+        updateFlipCount();
     }
 }
 
 function updateFields() {
-    document.getElementById("nameV").textContent = "Name: " + myName;
-    document.getElementById("raceV").textContent = "Race: " + myRace;
-    document.getElementById("runNumberV").textContent = "Run #" + runNumber;
-    document.getElementById("skill1V").textContent = mySkill1;
-    document.getElementById("skill2V").textContent = mySkill2;
-    document.getElementById("skill3V").textContent = mySkill3;
-    document.getElementById("questlineV").textContent = myQuestline;
-    document.getElementById("questProgressV").textContent = myQuestsCompleted + " of " + myQuestsTotal + " completed";
-
     document.getElementById("nameH").textContent = "Name: " + myName;
     document.getElementById("raceH").textContent = "Race: " + myRace;
     document.getElementById("runNumberH").textContent = "Run #" + runNumber;
@@ -152,6 +166,7 @@ function updateFields() {
     document.getElementById("questProgressH").textContent = "(" + myQuestsCompleted + " of " + myQuestsTotal + " completed)";
 
     document.getElementById("location").textContent = currentLocation;
+    document.getElementById("")
 }
 
 function setQuestCompleted(isIncreasing) {
@@ -166,11 +181,8 @@ function setQuestCompleted(isIncreasing) {
         }
     }
     if (allQuestsCompleted) {
-        document.getElementById("questlineV").textContent = "None";
-        document.getElementById("questProgressV").textContent = "All quests complete!";
         document.getElementById("questProgressH").textContent = "All quests complete!";
     } else {
-        document.getElementById("questProgressV").textContent = myQuestsCompleted + " of " + myQuestsTotal + " completed";
         document.getElementById("questProgressH").textContent = "(" + myQuestsCompleted + " of " + myQuestsTotal + " completed)";
     }
 }
@@ -189,12 +201,42 @@ function updateRunNumber() {
     updateFields();
 }
 
-function changeLayout() {
-    if (document.getElementById("radioVertical").checked) {
-        document.getElementById("characterVertical").style.display = "";
-        document.getElementById("characterHorizontal").style.display = "none";
-    } else {
-        document.getElementById("characterVertical").style.display = "none";
-        document.getElementById("characterHorizontal").style.display = "";
+function increaseCoinFlips() {
+    currentCoinFlips += 1;
+    updateFlipCount();
+    if (currentCoinFlips >= coinFlipThreshold) {
+        updateLocation();
+        currentCoinFlips = 0;
+        updateFlipCount();
     }
+}
+
+function flipCoin() {
+    let coin = document.querySelector(".coin");
+    let result = Math.floor(Math.random() * 2);
+    coin.style.animation = "none";
+    if (result) {
+        setTimeout(function() {
+            coin.style.animation = "spin-heads 3s forwards";
+            setTimeout(function() {
+                increaseCoinFlips();
+            }, 3200);
+        }, 100);
+
+    }
+    else {
+        setTimeout(function() {
+            coin.style.animation = "spin-tails 3s forwards";
+        }, 100);
+    }
+}
+
+function swapBars() {
+    let topDiv = document.getElementById("topTable");
+    let bottomDiv = document.getElementById("bottomTable");
+    let tmpTopHTML = topDiv.innerHTML;
+    let tmpBottomHTML = bottomDiv.innerHTML;
+
+    topDiv.innerHTML = tmpBottomHTML;
+    bottomDiv.innerHTML = tmpTopHTML;
 }

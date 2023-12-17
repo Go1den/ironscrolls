@@ -18,17 +18,21 @@
             <tr>
                 <td class="bordered">
                     <h3>Character Setup</h3>
-                    <div style="width: 400px">
+                    <div style="width: 600px">
                         <label>Name:</label>
                         <input id="inputName" size="10" maxlength="10"/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <label>Run Number:</label>
                         <input id="inputRunNumber" size="4" maxlength="4"/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>Coin Flip Threshold:</label>
+                        <input id="inputFlips" size="3" maxlength="3"/>
                     </div>
                     <br/>
-                    <div style="width: 400px">
+                    <div style="width: 600px">
                         <button onclick="updateName()">Update Name</button>
                         <button onclick="updateRunNumber()">Update Run Number</button>
+                        <button onclick="updateFlips()">Update Flip Threshold</button>
                     </div>
                     <br/>
                     <br/>
@@ -36,46 +40,22 @@
                 <td class="bordered">
                     <h3>Actions</h3>
                     <button onclick="generateNewCharacter()">Roll New Character</button>
-                    <button onclick="updateLocation()">Roll Random Location</button>
+                    <button onclick="flipCoin()">Flip a Coin</button>
+                    <button onclick="clearLocation()">Reset Location</button>
                     <br/>
                     <br/>
                     <button onclick="setQuestCompleted(true)">+1 Quests Completed</button>
-                    <button onclick="setQuestCompleted(false)">-1 Quests Completed</button>
+                    <button onclick="setQuestCompleted(false)">-1 Quests Completed</button>        
+                    <button onclick="swapBars()">Swap Bars</button>
                     <br/>
                     <br/>
                 </td>
             </tr>
         </table>
     </div>
-    <div id="characterCard">
+    <div id="topTable">
         <h3>Current Character</h3>
-        <input type="radio" id="radioVertical" name="layout" value="Vertical" checked onchange="changeLayout()">
-        <label for="radioVertical">Vertical Layout</label>
-        <input type="radio" id="radioHorizontal" name="layout" value="Horizontal" onchange="changeLayout()">
-        <label for="radioHorizontal">Horizontal Layout</label>
-        <br/>
-        <br/>
-        <div id="characterVertical">
-            <table class="characterVertical">
-                <tr>
-                    <td>
-                        <div id="runNumberV">Run #0</div>
-                        <div id="nameV">Name: Name</div>
-                        <div id="raceV">Race: TBD</div>
-                        <br>
-                        <div>Skills:</div>
-                        <div id="skill1V">Skill 1</div>
-                        <div id="skill2V">Skill 2</div>
-                        <div id="skill3V">Skill 3</div>
-                        <br>
-                        <div>Current Questline:</div>
-                        <div id="questlineV">Current Questline</div>
-                        <div id="questProgressV">0 of 0 completed</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div id="characterHorizontal" style="display: none;">
+        <div id="characterHorizontal">
             <table class="characterHorizontal">
                 <tr>
                     <td>
@@ -94,13 +74,29 @@
             </table>
         </div>
     </div>
-    <div id="locationCard">
+    <br/>
+    <div id="bottomTable">
         <h3>Current Location</h3>
         <table class="location">
             <tr>
-                <td id="location">None</td>
+                <td>
+                    <span id="location">Current Location: None</span>
+                    <span id="coinFlips">Coin Flips to Next Location: 0 of 5</span>
+                </td>
             </tr>
         </table>
+    </div>
+    <br/>
+    <div class="coinFlipTable">
+        <h3>Coin Flip Result</h3>
+        <div class="coin" id="coin">
+            <div class="heads">
+               <img src="images/heads.png"/>
+            </div>
+            <div class="tails">
+               <img src="images/tails.png"/>
+            </div>
+         </div>
     </div>
     </body>
 </html>
