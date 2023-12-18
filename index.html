@@ -42,11 +42,13 @@
                     <button onclick="generateNewCharacter()">Roll New Character</button>
                     <button onclick="flipCoin()">Flip a Coin</button>
                     <button onclick="clearLocation()">Reset Location</button>
+                    <button onclick="load()">Load Run From File</button>
                     <br/>
                     <br/>
                     <button onclick="setQuestCompleted(true)">+1 Quests Completed</button>
                     <button onclick="setQuestCompleted(false)">-1 Quests Completed</button>        
                     <button onclick="swapBars()">Swap Bars</button>
+                    <button onclick="save()">Save Run to File</button>
                     <br/>
                     <br/>
                 </td>
@@ -98,5 +100,6 @@
             </div>
          </div>
     </div>
+    <input id="hiddenFileInput" type="file" accept=".json" style="display: none" onchange="loadCharacter()"/>
     </body>
 </html>

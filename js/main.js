@@ -3,7 +3,7 @@ let myRace = "TBD";
 let mySkill1 = "Skill 1";
 let mySkill2 = "Skill 2";
 let mySkill3 = "Skill 3";
-let myQuestline = "Main Quest";
+let myQuestline = "Main Questline";
 let runNumber = 0;
 let myQuestsCompleted = 0;
 let myQuestsTotal = 0;
@@ -138,7 +138,7 @@ function resetCharacter() {
     myQuestsTotal = 0;
     allQuestsCompleted = false;
     visitedLocations = [];
-    currentLocation = "Current Location: None";
+    currentLocation = "None";
     currentCoinFlips = 0;
 }
 
@@ -164,9 +164,8 @@ function updateFields() {
     document.getElementById("skill3H").textContent = mySkill3;
     document.getElementById("questlineH").textContent = myQuestline;
     document.getElementById("questProgressH").textContent = "(" + myQuestsCompleted + " of " + myQuestsTotal + " completed)";
-
-    document.getElementById("location").textContent = currentLocation;
-    document.getElementById("")
+    document.getElementById("coinFlips").textContent = "Coin Flips to Next Location: " + currentCoinFlips + " of " + coinFlipThreshold;
+    document.getElementById("location").textContent = "Current Location: " + currentLocation;
 }
 
 function setQuestCompleted(isIncreasing) {
@@ -239,4 +238,82 @@ function swapBars() {
 
     topDiv.innerHTML = tmpBottomHTML;
     bottomDiv.innerHTML = tmpTopHTML;
+}
+
+function load() {
+    hiddenFileInput.click();
+}
+
+function loadCharacter() {
+    var file = document.getElementById("hiddenFileInput").files[0];
+    if (file) {
+        var reader = new FileReader();
+        reader.readAsText(file, "UTF-8");
+        reader.onload = function (evt) {
+            try {
+                let json = JSON.parse(evt.target.result);
+                myName = json.myName;
+                myRace = json.myRace;
+                mySkill1 = json.mySkill1;
+                mySkill2 = json.mySkill2;
+                mySkill3 = json.mySkill3;
+                myQuestline = json.myQuestline;
+                runNumber = json.runNumber;
+                myQuestsCompleted = json.myQuestsCompleted;
+                myQuestsTotal = json.myQuestsTotal;
+                myQuestIndexArray = json.myQuestIndexArray;
+                allQuestsCompleted = json.allQuestsCompleted;
+                visitedLocations = json.visitedLocations;
+                currentLocation = json.currentLocation;
+                currentCoinFlips = json.currentCoinFlips;
+                coinFlipThreshold = json.coinFlipThreshold;
+                updateFields();
+            } catch (error) {
+                alert("Error loading character data from this file.");
+            }
+        }
+        reader.onerror = function (evt) {
+            alert("Error loading character data from this file.");
+        }
+    }
+}
+
+function download(data, filename, type) {
+    var file = new Blob([data], {type: type});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
+}
+
+function save() {
+    let tab = "    ";
+    let json = "{\n";
+    json += tab + "\"myName\": \"" + myName + "\",\n";
+    json += tab + "\"myRace\": \"" + myRace + "\",\n";
+    json += tab + "\"mySkill1\": \"" + mySkill1 + "\",\n";
+    json += tab + "\"mySkill2\": \"" + mySkill2 + "\",\n";
+    json += tab + "\"mySkill3\": \"" + mySkill3 + "\",\n";
+    json += tab + "\"myQuestline\": \"" + myQuestline + "\",\n";
+    json += tab + "\"runNumber\": " + runNumber + ",\n";
+    json += tab + "\"myQuestsCompleted\": " + myQuestsCompleted + ",\n";
+    json += tab + "\"myQuestsTotal\": " + myQuestsTotal + ",\n";
+    json += tab + "\"myQuestIndexArray\": [" + myQuestIndexArray + "],\n";
+    json += tab + "\"allQuestsCompleted\": " + allQuestsCompleted + ",\n";
+    json += tab + "\"visitedLocations\": [" + visitedLocations + "],\n";
+    json += tab + "\"currentLocation\": \"" + currentLocation + "\",\n";
+    json += tab + "\"currentCoinFlips\": " + currentCoinFlips + ",\n";
+    json += tab + "\"coinFlipThreshold\": " + coinFlipThreshold + "\n";
+    json += "}";
+    download(json, "ironscrolls.json", 'text/plain');
 }
