@@ -114,7 +114,11 @@ function setupQuestline() {
         .map(value => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value)
-    getNextQuest();
+    if (myQuestIndexArray[4] == 3) { //Don't allow Dark Brotherhood as the first questline
+        setupQuestline();
+    } else {
+        getNextQuest();
+    }
 }
 
 function getNextQuest() {
