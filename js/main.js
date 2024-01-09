@@ -70,7 +70,7 @@ function updateFlipCount() {
 }
 
 function getRandomUnvisitedLocation() {
-    let allLocations = caves.concat(dwarvenRuins, militaryForts, mines, nordicRuins, imperialTowers);
+    let allLocations = caves.concat(dwarvenRuins, militaryForts, mines, nordicRuins);
     let index = Math.floor(Math.random() * allLocations.length);
     if (visitedLocations.includes(index)) {
         return getRandomUnvisitedLocation();
